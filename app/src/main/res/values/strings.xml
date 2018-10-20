@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">At Cinemas</string>
+
+    <string name="loading">Loading</string>
+    <string name="no_results">No results 😓</string>
+    <string name="unknown">\?</string>
+
+    <string name="poster_image_thumbnail_content_description">Movie poster thumbnail image</string>
 </resources>

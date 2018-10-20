@@ -1,7 +1,8 @@
-package com.planetpeopleplatform.atcinemas
+package com.planetpeopleplatform.atcinemas.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.planetpeopleplatform.atcinemas.R
 
 class MainActivity : AppCompatActivity() {
 
