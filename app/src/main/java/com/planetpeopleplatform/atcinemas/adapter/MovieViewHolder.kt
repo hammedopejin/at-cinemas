@@ -33,13 +33,13 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
+
     private fun showRepoData(movie: Movie) {
         this.mMovie = movie
         mTitle.text = movie.title
 
         Glide.with(mContext).load(THUMBNAIL_URL + mMovie!!.url).apply(centerInsideTransform()
                 .placeholder(R.drawable.ic_movie_creation_black_24dp)).into(mUrl)
-
 
     }
 

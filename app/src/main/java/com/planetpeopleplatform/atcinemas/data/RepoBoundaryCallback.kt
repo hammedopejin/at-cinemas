@@ -33,10 +33,10 @@ class RepoBoundaryCallback(
     private var isRequestInProgress = false
 
     private fun requestAndSaveData() {
-        if (isRequestInProgress) return
+        if (isRequestInProgress || lastRequestedPage > 40) return
 
         isRequestInProgress = true
-        fetchMovies(service, lastRequestedPage, NETWORK_PAGE_SIZE, { movies ->
+        fetchMovies(service, lastRequestedPage, { movies ->
             cache.insert(movies, {
                 lastRequestedPage++
                 isRequestInProgress = false
@@ -48,6 +48,5 @@ class RepoBoundaryCallback(
     }
 
     companion object {
-        private const val NETWORK_PAGE_SIZE = 50
     }
 }

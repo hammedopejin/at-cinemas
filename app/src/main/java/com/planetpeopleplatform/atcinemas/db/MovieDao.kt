@@ -18,6 +18,6 @@ interface MovieDao {
 
     // Fetch all movies
     @Query("SELECT * FROM movies")
-    fun reposQuery(): DataSource.Factory<Int, Movie>
+    fun moviesQuery(): DataSource.Factory<Int, Movie>
 
 }

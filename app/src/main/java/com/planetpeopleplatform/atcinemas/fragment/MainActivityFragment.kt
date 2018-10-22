@@ -19,7 +19,6 @@ import com.planetpeopleplatform.atcinemas.adapter.MoviesAdapter
 import com.planetpeopleplatform.atcinemas.model.Movie
 import com.planetpeopleplatform.atcinemas.utils.Injection
 import com.planetpeopleplatform.atcinemas.view_model.MovieRepositoriesViewModel
-import kotlinx.android.synthetic.main.fragment_main_activity.*
 
 
 class MainActivityFragment : Fragment() {
@@ -37,7 +36,7 @@ class MainActivityFragment : Fragment() {
         mPb = rootView.findViewById(R.id.pb_loading_indicator)
 
         // get the view model
-        viewModel = ViewModelProviders.of(activity!!, Injection.provideViewModelFactory(context!!))
+        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(context!!))
                 .get(MovieRepositoriesViewModel::class.java)
 
         initAdapter()

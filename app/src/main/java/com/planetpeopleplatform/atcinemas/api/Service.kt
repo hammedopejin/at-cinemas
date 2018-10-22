@@ -29,12 +29,11 @@ private const val TAG = "Service"
 fun fetchMovies(
         service: Service,
         page: Int,
-        itemsPerPage: Int,
         onSuccess: (movies: List<Movie>) -> Unit,
         onError: (error: String) -> Unit) {
-    Log.d(TAG, "page: $page, itemsPerPage: $itemsPerPage")
+    Log.d(TAG, "page: $page")
 
-    service.fetchMovies(page, itemsPerPage).enqueue(
+    service.fetchMovies(page).enqueue(
             object : Callback<MovieResponse> {
                 override fun onFailure(call: Call<MovieResponse>?, t: Throwable) {
                     Log.d(TAG, "fail to get data")
@@ -65,8 +64,7 @@ interface Service {
      * Get repos ordered by stars.
      */
     @GET("now_playing?api_key=" + BuildConfig.MOVIEDB_API_KEY)
-    fun fetchMovies(@Query("page") page: Int,
-                    @Query("per_page") itemsPerPage: Int): Call<MovieResponse>
+    fun fetchMovies(@Query("page") page: Int): Call<MovieResponse>
 
     companion object {
         private const val BASE_URL = MOVIE_BASE_URL

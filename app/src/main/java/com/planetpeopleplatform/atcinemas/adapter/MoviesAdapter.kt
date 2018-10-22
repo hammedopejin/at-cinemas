@@ -16,9 +16,9 @@ class MoviesAdapter : PagedListAdapter<Movie, RecyclerView.ViewHolder>(REPO_COMP
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val repoItem = getItem(position)
-        if (repoItem != null) {
-            (holder as MovieViewHolder).bind(repoItem)
+        val movieItem = getItem(position)
+        if (movieItem != null) {
+            (holder as MovieViewHolder).bind(movieItem)
         }
     }
 

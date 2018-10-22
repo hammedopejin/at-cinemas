@@ -26,9 +26,9 @@ class MovieLocalCache(
     }
 
     /**
-     * Request all LiveData<List<Movie>> from the Dao, based on a movie name.
+     * Request all LiveData<List<Movie>> from the Dao.
      */
     fun moviesQuery(): DataSource.Factory<Int, Movie> {
-        return movieDao.reposQuery()
+        return movieDao.moviesQuery()
     }
 }

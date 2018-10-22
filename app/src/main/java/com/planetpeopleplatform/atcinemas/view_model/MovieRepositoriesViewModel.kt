@@ -13,7 +13,7 @@ import com.planetpeopleplatform.atcinemas.model.MovieResult
  * ViewModel for the [MainActivityFragment] screen.
  * The ViewModel works with the [MovieRepository] to get the data.
  */
-class MovieRepositoriesViewModel(private val repository: MovieRepository) : ViewModel() {
+class MovieRepositoriesViewModel(repository: MovieRepository) : ViewModel() {
 
     private val movieResult: MovieResult = repository.fetch()
 
