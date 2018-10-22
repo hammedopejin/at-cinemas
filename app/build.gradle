@@ -19,7 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         buildTypes.each{
-            it.buildConfigField 'String', 'MOVIEDB_API_KEY', "\"f16d0ec2539e84fb28f16aa91f86f0a2\""
+            it.buildConfigField 'String', 'MOVIEDB_API_KEY', "\"KEY\""
         }
     }
 }
