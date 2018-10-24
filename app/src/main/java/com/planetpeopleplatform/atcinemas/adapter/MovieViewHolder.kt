@@ -29,12 +29,12 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             mTitle.text = resources.getString(R.string.loading)
 
         } else {
-            showRepoData(movie)
+            showMovieData(movie)
         }
     }
 
 
-    private fun showRepoData(movie: Movie) {
+    private fun showMovieData(movie: Movie) {
         this.mMovie = movie
         mTitle.text = movie.title
 

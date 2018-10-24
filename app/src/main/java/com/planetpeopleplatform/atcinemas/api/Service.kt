@@ -46,7 +46,7 @@ fun fetchMovies(
                 ) {
                     Log.d(TAG, "got a response $response")
                     if (response.isSuccessful) {
-                        val movies = response.body()?.items ?: emptyList()
+                        val movies = response.body()?.results ?: emptyList()
                         onSuccess(movies)
                     } else {
                         onError(response.errorBody()?.string() ?: "Unknown error")

@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName
  */
 @Entity(tableName = "movies")
 data class Movie(
-        @PrimaryKey @field:SerializedName("movie_id") val id: Long,
+        @PrimaryKey @field:SerializedName("id") val id: Long,
         @field:SerializedName("title") val title: String,
         @field:SerializedName("overview") val description: String?,
         @field:SerializedName("poster_path") val url: String?,

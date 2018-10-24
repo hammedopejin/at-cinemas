@@ -16,7 +16,7 @@ import com.planetpeopleplatform.atcinemas.model.Movie
 )
 abstract class MovieDatabase : RoomDatabase() {
 
-    abstract fun reposDao(): MovieDao
+    abstract fun movieDao(): MovieDao
 
     companion object {
 

@@ -21,7 +21,7 @@ object Injection {
      */
     private fun provideCache(context: Context): MovieLocalCache {
         val database = MovieDatabase.getInstance(context)
-        return MovieLocalCache(database.reposDao(), Executors.newSingleThreadExecutor())
+        return MovieLocalCache(database.movieDao(), Executors.newSingleThreadExecutor())
     }
 
     /**

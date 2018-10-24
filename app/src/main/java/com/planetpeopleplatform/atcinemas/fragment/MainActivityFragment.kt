@@ -6,6 +6,7 @@ import android.arch.paging.PagedList
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -19,6 +20,8 @@ import com.planetpeopleplatform.atcinemas.adapter.MoviesAdapter
 import com.planetpeopleplatform.atcinemas.model.Movie
 import com.planetpeopleplatform.atcinemas.utils.Injection
 import com.planetpeopleplatform.atcinemas.view_model.MovieRepositoriesViewModel
+
+
 
 
 class MainActivityFragment : Fragment() {
@@ -35,13 +38,16 @@ class MainActivityFragment : Fragment() {
         mRv = rootView.findViewById(R.id.movies_rv)
         mPb = rootView.findViewById(R.id.pb_loading_indicator)
 
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // get the view model
         viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(context!!))
                 .get(MovieRepositoriesViewModel::class.java)
 
         initAdapter()
-
-        return rootView
     }
 
 
@@ -53,15 +59,20 @@ class MainActivityFragment : Fragment() {
             //landscapeView
             mRv.layoutManager = GridLayoutManager(mRv.context, 3)
         }
+        // add dividers between RecyclerView's row items
+        val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        mRv.addItemDecoration(decoration)
         mRv.adapter = adapter
         showLoading()
 
-        viewModel.movies.observe(activity!!, Observer<PagedList<Movie>> {
+        viewModel.movies.observe(this, Observer<PagedList<Movie>> {
             Log.d("Activity", "movies_rv: ${it?.size}")
+            Log.d("Activity", "movies_rv: ${it?.get(0)?.title}")
             adapter.submitList(it)
             showDataView()
         })
-        viewModel.networkErrors.observe(activity!!, Observer<String> {
+
+        viewModel.networkErrors.observe(this, Observer<String> {
             Toast.makeText(context, "\uD83D\uDE28 Wooops ${it}", Toast.LENGTH_LONG).show()
             showDataView()
         })
@@ -79,10 +90,5 @@ class MainActivityFragment : Fragment() {
         mRv.visibility = View.INVISIBLE
         /* Finally, show the loading indicator */
         mPb.visibility = View.VISIBLE
-    }
-
-
-    companion object {
-
     }
 }

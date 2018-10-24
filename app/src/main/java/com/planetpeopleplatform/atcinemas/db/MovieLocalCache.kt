@@ -20,6 +20,7 @@ class MovieLocalCache(
     fun insert(movies: List<Movie>, insertFinished: ()-> Unit) {
         ioExecutor.execute {
             Log.d("MovieLocalCache", "inserting ${movies.size} movies")
+            Log.d("MovieLocalCache", "inserting ${movies.get(0).title} movies")
             movieDao.insert(movies)
             insertFinished()
         }

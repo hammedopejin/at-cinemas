@@ -8,6 +8,6 @@ import com.planetpeopleplatform.atcinemas.model.Movie
  */
 data class MovieResponse(
         @SerializedName("total_results") val total: Int = 0,
-        @SerializedName("results") val items: List<Movie> = emptyList(),
+        @SerializedName("results") val results: List<Movie> = emptyList(),
         val nextPage: Int? = null
 )

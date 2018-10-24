@@ -15,7 +15,7 @@ import com.planetpeopleplatform.atcinemas.model.MovieResult
  */
 class MovieRepositoriesViewModel(repository: MovieRepository) : ViewModel() {
 
-    private val movieResult: MovieResult = repository.fetch()
+   private val movieResult: MovieResult = repository.fetch()
 
     val movies: LiveData<PagedList<Movie>> = movieResult.data
 
