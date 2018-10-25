@@ -5,5 +5,10 @@
     <string name="no_results">No results 😓</string>
     <string name="unknown">\?</string>
 
+    <!-- Description strings  -->
+    <string name="back_arrow_description_string">Back arrow image, when clicked navigates user back to previous screen</string>
     <string name="poster_image_thumbnail_content_description">Movie poster thumbnail image</string>
+    <string name="settings_option_image_button_string">Image for setting options</string>
+    <string name="release_date_string">Release date:</string>
+    <string name="movie_poster_image">Poster image for the movie</string>
 </resources>
