@@ -1,16 +1,22 @@
 package com.planetpeopleplatform.atcinemas.adapter
 
+import android.arch.paging.PagedList
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import com.planetpeopleplatform.atcinemas.fragment.MovieFragment
+import com.planetpeopleplatform.atcinemas.model.Movie
 
-class MoviePagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
-    override fun getItem(position: Int): Fragment {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class MoviePagerAdapter(fragment: Fragment, movies: PagedList<Movie>)
+    : FragmentStatePagerAdapter(fragment.childFragmentManager) {
+
+    private var mMovies: PagedList<Movie> = movies
 
     override fun getCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mMovies.size
     }
 
+    override fun getItem(position: Int): Fragment? {
+        return MovieFragment().newInstance(mMovies[position]!!.url!!,
+                mMovies[position]!!.date!!)
+    }
 }

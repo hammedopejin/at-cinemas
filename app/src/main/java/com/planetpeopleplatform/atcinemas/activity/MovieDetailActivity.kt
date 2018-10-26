@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.planetpeopleplatform.atcinemas.R
 import com.planetpeopleplatform.atcinemas.fragment.MoviePagerFragment
-import com.planetpeopleplatform.atcinemas.utils.Constants.MOVIE_ID
+import com.planetpeopleplatform.atcinemas.utils.Constants.MOVIE_POSITION
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -13,17 +13,17 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
 
         val arguments = intent
-        var movieId: String
+        var moviePosition: Int
 
         if (intent == null) {
             return
         }
         if (arguments != null) {
-            movieId = intent!!.getStringExtra(MOVIE_ID)
+            moviePosition = intent!!.getIntExtra(MOVIE_POSITION, 0)
             val fragmentManager = supportFragmentManager
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragment_container, MoviePagerFragment().newInstance(movieId),
+                    .replace(R.id.container, MoviePagerFragment().newInstance(moviePosition),
                             MoviePagerFragment::class.java.getSimpleName())
                     .commit()
         }

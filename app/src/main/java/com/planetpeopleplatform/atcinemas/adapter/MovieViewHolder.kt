@@ -17,6 +17,7 @@ import com.planetpeopleplatform.atcinemas.R
 import com.planetpeopleplatform.atcinemas.activity.MovieDetailActivity
 import com.planetpeopleplatform.atcinemas.model.Movie
 import com.planetpeopleplatform.atcinemas.utils.Constants.MOVIE_ID
+import com.planetpeopleplatform.atcinemas.utils.Constants.MOVIE_POSITION
 import com.planetpeopleplatform.atcinemas.utils.Constants.THUMBNAIL_URL
 
 /**
@@ -31,7 +32,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     init {
         view.setOnClickListener {
             val intent = Intent(mContext, MovieDetailActivity::class.java)
-            intent.putExtra(MOVIE_ID, mMovie!!.id)
+            intent.putExtra(MOVIE_POSITION, adapterPosition)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 val bundle: Bundle = ActivityOptions.makeSceneTransitionAnimation(mContext as Activity?).toBundle()

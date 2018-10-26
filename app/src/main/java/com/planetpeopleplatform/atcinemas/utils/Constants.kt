@@ -33,7 +33,8 @@ object Constants {
     const val EXTRA_STRING = "extra_string"
     const val DEFAULT_POSITION = -1
 
-    const val MOVIE_ID = "MovieID"
+    const val MOVIE_ID = "movie_id"
+    const val MOVIE_POSITION = "movie_position"
     const val SORT_BY = "sortBy"
     const val UNKNOWN = "Unknown"
 
