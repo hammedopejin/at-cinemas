@@ -5,7 +5,6 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions.centerInsideTransform
 import com.planetpeopleplatform.atcinemas.R
 import com.planetpeopleplatform.atcinemas.activity.MovieDetailActivity
 import com.planetpeopleplatform.atcinemas.model.Movie
+import com.planetpeopleplatform.atcinemas.utils.Constants.MOVIE_ID
 import com.planetpeopleplatform.atcinemas.utils.Constants.THUMBNAIL_URL
 
 /**
@@ -31,7 +31,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     init {
         view.setOnClickListener {
             val intent = Intent(mContext, MovieDetailActivity::class.java)
-            intent.putExtra("movie_id", mMovie!!.id)
+            intent.putExtra(MOVIE_ID, mMovie!!.id)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 val bundle: Bundle = ActivityOptions.makeSceneTransitionAnimation(mContext as Activity?).toBundle()
