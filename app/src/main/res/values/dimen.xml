@@ -25,7 +25,7 @@
 
     <dimen name="activity_layout_margin">8dp</dimen>
     <dimen name="image_layout_width">200dp</dimen>
-    <dimen name="image_layout_height">300dp</dimen>
+    <dimen name="image_layout_height">250dp</dimen>
     <dimen name="tiny_layout_padding">4dp</dimen>
 
     <!-- main activity -->
@@ -38,6 +38,9 @@
     <dimen name="detail_body_text_size">18sp</dimen>
     <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
 
+
+    <dimen name="card_movie_radius">0dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
 
     <dimen name="min_margin">2dp</dimen>
     <dimen name="text_padding">16dp</dimen>

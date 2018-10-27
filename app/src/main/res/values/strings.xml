@@ -11,4 +11,7 @@
     <string name="settings_option_image_button_string">Image for setting options</string>
     <string name="release_date_string">Release date:</string>
     <string name="movie_poster_image">Poster image for the movie</string>
+    <string name="movie_description_string">Overview</string>
+    <string name="trailer_string">Trailer</string>
+    <string name="reviews_string">Reviews</string>
 </resources>

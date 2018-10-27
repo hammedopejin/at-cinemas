@@ -53,8 +53,6 @@ class MoviePagerFragment : Fragment() {
             return null
         }
         mMoviePosition = arguments.getInt(KEY_MOVIE_POSITION)
-
-        viewPager!!.setCurrentItem(mMoviePosition)
         initMovies()
 
         return viewPager
@@ -66,6 +64,7 @@ class MoviePagerFragment : Fragment() {
             Log.d("Activity", "movies_rv: ${it?.get(0)?.title}")
             mViewPageAdapter = MoviePagerAdapter(this, it!!)
             viewPager!!.adapter = mViewPageAdapter
+            viewPager!!.setCurrentItem(mMoviePosition)
         })
 
         viewModel.networkErrors.observe(this, Observer<String> {

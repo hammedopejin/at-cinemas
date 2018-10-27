@@ -17,6 +17,7 @@ class MoviePagerAdapter(fragment: Fragment, movies: PagedList<Movie>)
 
     override fun getItem(position: Int): Fragment? {
         return MovieFragment().newInstance(mMovies[position]!!.url!!,
-                mMovies[position]!!.date!!)
+                mMovies[position]!!.date!!,
+                mMovies[position]!!.title!!)
     }
 }

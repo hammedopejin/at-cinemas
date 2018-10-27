@@ -1,10 +1,14 @@
 package com.planetpeopleplatform.atcinemas.fragment
 
+import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v4.app.Fragment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -15,16 +19,17 @@ import com.planetpeopleplatform.atcinemas.utils.Constants
 
 class MovieFragment : Fragment() {
 
-    private val KEY_MOVIE_ID = "com.planetpeopleplatform.atcinemas.key.movieID"
+    private val KEY_MOVIE_TITLE = "com.planetpeopleplatform.atcinemas.key.movieTITLE"
     private val KEY_MOVIE_POSTER = "com.planetpeopleplatform.atcinemas.key.moviePoster"
     private val KEY_MOVIE_RATING = "com.planetpeopleplatform.atcinemas.key.movieRATING"
     private val KEY_MOVIE_RELEASE_DATE = "com.planetpeopleplatform.atcinemas.key.movieRELEASEDATE"
 
-    fun newInstance(url: String, date: String): MovieFragment {
+    fun newInstance(url: String, date: String, title: String): MovieFragment {
         val fragment = MovieFragment()
         val argument = Bundle()
         argument.putString(KEY_MOVIE_POSTER, url)
         argument.putString(KEY_MOVIE_RELEASE_DATE, date)
+        argument.putString(KEY_MOVIE_TITLE, title)
         fragment.setArguments(argument)
         return fragment
     }
@@ -35,6 +40,14 @@ class MovieFragment : Fragment() {
         val mPosterImageView: ImageView = view.findViewById(R.id.movie_poster_image_view)
         val mRatingBar: RatingBar = view.findViewById(R.id.rb_rating)
         val mReleaseDate: TextView = view.findViewById(R.id.release_date_text_view)
+        val mCollapsingToolbarLayout: CollapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar)
+        val mBackArrow: ImageButton = view.findViewById(R.id.back_arrow)
+
+        mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#ffffff"))
+        mCollapsingToolbarLayout.setExpandedTitleGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
+        mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.collapsing_tool_bar_layout_textview)
+
+        mBackArrow.setOnClickListener(View.OnClickListener { activity!!.onBackPressed() })
 
 
         val arguments = arguments
@@ -44,6 +57,9 @@ class MovieFragment : Fragment() {
         }
         val url = arguments.getString(KEY_MOVIE_POSTER)
         val date = arguments.getString(KEY_MOVIE_RELEASE_DATE)
+        val title = arguments.getString(KEY_MOVIE_TITLE)
+
+        mCollapsingToolbarLayout.setTitle(title)
 
         Glide.with(container!!.context).load(Constants.THUMBNAIL_URL + url)
                 .apply(RequestOptions.centerInsideTransform()
