@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +17,12 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.planetpeopleplatform.atcinemas.R
+import com.planetpeopleplatform.atcinemas.adapter.ReviewsAdapter
+import com.planetpeopleplatform.atcinemas.adapter.TrailerAdapter
+import com.planetpeopleplatform.atcinemas.model.Reviews
+import com.planetpeopleplatform.atcinemas.model.Trailer
 import com.planetpeopleplatform.atcinemas.utils.Constants
+import java.util.ArrayList
 
 class MovieFragment : Fragment() {
 
@@ -24,10 +31,17 @@ class MovieFragment : Fragment() {
     private val KEY_MOVIE_RATING = "com.planetpeopleplatform.atcinemas.key.movieRATING"
     private val KEY_MOVIE_RELEASE_DATE = "com.planetpeopleplatform.atcinemas.key.movieRELEASEDATE"
 
-    fun newInstance(url: String, date: String, title: String): MovieFragment {
+    private var trailerRecyclerView: RecyclerView? = null
+    private var reviewsRecyclerView: RecyclerView? = null
+    private var trailerAdapter: TrailerAdapter? = null
+    private var trailerList: List<Trailer>? = null
+    private var reviewsAdapter: ReviewsAdapter? = null
+    private var reviewsList: List<Reviews>? = null
+
+    fun newInstance(posterUrl: String, date: String, title: String): MovieFragment {
         val fragment = MovieFragment()
         val argument = Bundle()
-        argument.putString(KEY_MOVIE_POSTER, url)
+        argument.putString(KEY_MOVIE_POSTER, posterUrl)
         argument.putString(KEY_MOVIE_RELEASE_DATE, date)
         argument.putString(KEY_MOVIE_TITLE, title)
         fragment.setArguments(argument)
@@ -47,7 +61,7 @@ class MovieFragment : Fragment() {
         mCollapsingToolbarLayout.setExpandedTitleGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.collapsing_tool_bar_layout_textview)
 
-        mBackArrow.setOnClickListener(View.OnClickListener { activity!!.onBackPressed() })
+        mBackArrow.setOnClickListener { activity!!.onBackPressed() }
 
 
         val arguments = arguments
@@ -55,18 +69,44 @@ class MovieFragment : Fragment() {
         if (arguments == null) {
             return null
         }
-        val url = arguments.getString(KEY_MOVIE_POSTER)
+        val posterUrl = arguments.getString(KEY_MOVIE_POSTER)
         val date = arguments.getString(KEY_MOVIE_RELEASE_DATE)
         val title = arguments.getString(KEY_MOVIE_TITLE)
 
         mCollapsingToolbarLayout.setTitle(title)
 
-        Glide.with(container!!.context).load(Constants.THUMBNAIL_URL + url)
+        Glide.with(container!!.context).load(Constants.THUMBNAIL_URL + posterUrl)
                 .apply(RequestOptions.centerInsideTransform()
                 .placeholder(R.drawable.ic_movie_creation_black_24dp)).into(mPosterImageView)
         mReleaseDate.text = date
 
-
+        initTrailer(view)
+        initReviews(view)
         return view
+    }
+
+    private fun initTrailer(view: View) {
+        trailerList = ArrayList<Trailer>()
+        trailerAdapter = TrailerAdapter(trailerList as ArrayList<Trailer>)
+
+        trailerRecyclerView = view.findViewById<View>(R.id.trailer_recycler_view) as RecyclerView
+
+        val mLayoutManager = LinearLayoutManager(context)
+        trailerRecyclerView!!.setLayoutManager(mLayoutManager)
+        val trailerLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        trailerRecyclerView!!.setLayoutManager(trailerLayoutManager)
+        trailerRecyclerView!!.setAdapter(trailerAdapter)
+        trailerAdapter!!.notifyDataSetChanged()
+    }
+
+    private fun initReviews(view: View) {
+        reviewsList = ArrayList<Reviews>()
+        reviewsAdapter = ReviewsAdapter(reviewsList as ArrayList<Reviews>)
+
+        reviewsRecyclerView = view.findViewById<View>(R.id.review_recycler_view) as RecyclerView
+        val reviewLayoutManager = LinearLayoutManager(context)
+        reviewsRecyclerView!!.setLayoutManager(reviewLayoutManager)
+        reviewsRecyclerView!!.setAdapter(reviewsAdapter)
+        reviewsAdapter!!.notifyDataSetChanged()
     }
 }

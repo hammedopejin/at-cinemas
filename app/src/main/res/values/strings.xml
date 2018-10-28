@@ -14,4 +14,6 @@
     <string name="movie_description_string">Overview</string>
     <string name="trailer_string">Trailer</string>
     <string name="reviews_string">Reviews</string>
+    <string name="trailer_thumbnail_string">Thumbnail that holds the trailer for the movie</string>
+    <string name="trailer_play_button_thumbnail_string">Trailer play button to play movie trailer when pressed</string>
 </resources>
