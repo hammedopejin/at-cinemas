@@ -12,6 +12,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val TAG = "Service"
@@ -60,11 +61,15 @@ fun fetchMovies(
  * TheMovieDB API communication setup via Retrofit.
  */
 interface Service {
-    /**
-     * Get repos ordered by stars.
-     */
+
     @GET("now_playing?api_key=" + BuildConfig.MOVIEDB_API_KEY)
     fun fetchMovies(@Query("page") page: Int): Call<MovieResponse>
+
+    @GET("{movie_id}/videos?api_key=" + BuildConfig.MOVIEDB_API_KEY)
+    fun fetchMovieTrailer(@Path("movie_id") id: Int): Call<TrailerResponse>
+
+    @GET("{movie_id}/reviews?api_key=" + BuildConfig.MOVIEDB_API_KEY)
+    fun fetchMovieReviews(@Path("movie_id") id: Int): Call<ReviewsResponse>
 
     companion object {
         private const val BASE_URL = MOVIE_BASE_URL

@@ -67,7 +67,6 @@ class MainActivityFragment : Fragment() {
 
         viewModel.movies.observe(this, Observer<PagedList<Movie>> {
             Log.d("Activity", "movies_rv: ${it?.size}")
-            Log.d("Activity", "movies_rv: ${it?.get(0)?.title}")
             adapter.submitList(it)
             showDataView()
         })

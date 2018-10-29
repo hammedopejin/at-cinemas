@@ -38,12 +38,15 @@ class MovieFragment : Fragment() {
     private var reviewsAdapter: ReviewsAdapter? = null
     private var reviewsList: List<Reviews>? = null
 
-    fun newInstance(posterUrl: String, date: String, title: String): MovieFragment {
+    fun newInstance(posterUrl: String?, date: String?, title: String?, rating: Double?): MovieFragment {
         val fragment = MovieFragment()
         val argument = Bundle()
         argument.putString(KEY_MOVIE_POSTER, posterUrl)
         argument.putString(KEY_MOVIE_RELEASE_DATE, date)
         argument.putString(KEY_MOVIE_TITLE, title)
+        if (rating != null) {
+            argument.putDouble(KEY_MOVIE_RATING, rating)
+        }
         fragment.setArguments(argument)
         return fragment
     }
@@ -72,6 +75,7 @@ class MovieFragment : Fragment() {
         val posterUrl = arguments.getString(KEY_MOVIE_POSTER)
         val date = arguments.getString(KEY_MOVIE_RELEASE_DATE)
         val title = arguments.getString(KEY_MOVIE_TITLE)
+        val rating = arguments.getDouble(KEY_MOVIE_RATING, 0.0)
 
         mCollapsingToolbarLayout.setTitle(title)
 
@@ -79,14 +83,15 @@ class MovieFragment : Fragment() {
                 .apply(RequestOptions.centerInsideTransform()
                 .placeholder(R.drawable.ic_movie_creation_black_24dp)).into(mPosterImageView)
         mReleaseDate.text = date
+        mRatingBar.rating = rating.toFloat()
 
-        initTrailer(view)
-        initReviews(view)
+//        initTrailer(view)
+//        initReviews(view)
         return view
     }
 
     private fun initTrailer(view: View) {
-        trailerList = ArrayList<Trailer>()
+        trailerList = ArrayList()
         trailerAdapter = TrailerAdapter(trailerList as ArrayList<Trailer>)
 
         trailerRecyclerView = view.findViewById<View>(R.id.trailer_recycler_view) as RecyclerView
@@ -100,7 +105,7 @@ class MovieFragment : Fragment() {
     }
 
     private fun initReviews(view: View) {
-        reviewsList = ArrayList<Reviews>()
+        reviewsList = ArrayList()
         reviewsAdapter = ReviewsAdapter(reviewsList as ArrayList<Reviews>)
 
         reviewsRecyclerView = view.findViewById<View>(R.id.review_recycler_view) as RecyclerView

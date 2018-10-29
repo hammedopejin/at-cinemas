@@ -19,8 +19,8 @@ class ReviewsAdapter(private val reviewsList: List<Reviews>?)
     }
 
     override fun onBindViewHolder(holder: ReviewsViewHolder, position: Int) {
-        holder.content.setText(reviewsList!![position].getContent())
-        holder.reviewAuthor.setText(reviewsList!![position].getAuthor())
+//        holder.content.setText(reviewsList!![position].getContent())
+//        holder.reviewAuthor.setText(reviewsList!![position].getAuthor())
     }
 
     override fun getItemCount(): Int {
