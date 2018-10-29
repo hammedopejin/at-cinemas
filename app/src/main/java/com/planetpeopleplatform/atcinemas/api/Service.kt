@@ -66,10 +66,10 @@ interface Service {
     fun fetchMovies(@Query("page") page: Int): Call<MovieResponse>
 
     @GET("{movie_id}/videos?api_key=" + BuildConfig.MOVIEDB_API_KEY)
-    fun fetchMovieTrailer(@Path("movie_id") id: Int): Call<TrailerResponse>
+    fun fetchMovieTrailer(@Path("movie_id") id: Long): Call<TrailerResponse>
 
     @GET("{movie_id}/reviews?api_key=" + BuildConfig.MOVIEDB_API_KEY)
-    fun fetchMovieReviews(@Path("movie_id") id: Int): Call<ReviewsResponse>
+    fun fetchMovieReviews(@Path("movie_id") id: Long): Call<ReviewsResponse>
 
     companion object {
         private const val BASE_URL = MOVIE_BASE_URL

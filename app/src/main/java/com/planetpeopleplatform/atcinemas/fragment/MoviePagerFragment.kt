@@ -45,8 +45,6 @@ class MoviePagerFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(context!!))
                 .get(MovieRepositoriesViewModel::class.java)
 
-        //viewPager.addOnPageChangeListe
-
         val arguments = arguments
 
         if (arguments == null) {

@@ -9,7 +9,7 @@ object Constants {
     const val OVERVIEW = "overview"
     const val VOTE_AVERAGE = "vote_average"
     const val RELEASE_DATE = "release_date"
-    const val THUMBNAIL_URL = "https://image.tmdb.org/t/p/w185/"
+    const val THUMBNAIL_URL = "https://image.tmdb.org/t/p/w500/"
     const val TRAILER_BASE_URL = "https://www.youtube.com/watch?v="
     const val TRAILER_IMG_PREFIX = "https://img.youtube.com/vi/"
     const val TRAILER_IMG_SURFIX = "/0.jpg"
