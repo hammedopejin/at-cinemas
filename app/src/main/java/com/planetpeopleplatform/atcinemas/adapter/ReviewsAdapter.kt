@@ -18,9 +18,6 @@ class ReviewsAdapter(private val reviewsList: List<Reviews>?, private val overvi
     private val VIEW_TYPE_INFO_MOVIE_DETAIL = 2
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder{
-
-
-
         val view: View
 
         if (viewType == VIEW_TYPE_REVIEW) {
@@ -35,22 +32,21 @@ class ReviewsAdapter(private val reviewsList: List<Reviews>?, private val overvi
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        when (holder.itemViewType) {
-            VIEW_TYPE_REVIEW -> {
-                (holder as ReviewsViewHolder).content.setText(reviewsList!![position].content)
-                holder.reviewAuthor.setText(reviewsList[position].author)
-            }
-            VIEW_TYPE_INFO_MOVIE_DETAIL -> {
-                (holder as MovieInfoViewHolder).overview.setText(overview)
-                holder.releaseDate.setText(releaseDate)
-                holder.ratingBar?.rating = ratingBar
-            }
+        if (holder.getItemViewType().equals(VIEW_TYPE_REVIEW)) {
+            (holder as ReviewsViewHolder).content.text = reviewsList!![position - 1].content
+            holder.reviewAuthor.text = reviewsList[position - 1].author
+        } else if (holder.getItemViewType().equals(VIEW_TYPE_INFO_MOVIE_DETAIL)) {
+            (holder as MovieInfoViewHolder).overview.setText(overview)
+            holder.releaseDate.text = releaseDate
+            holder.ratingBar?.rating = ratingBar
         }
     }
 
     override fun getItemCount(): Int {
-        return reviewsList?.size ?: 0
+        if (reviewsList != null){
+            return reviewsList.size + 1
+        }
+        return 0
     }
 
     inner class ReviewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -8,11 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.planetpeopleplatform.atcinemas.R
 import com.planetpeopleplatform.atcinemas.model.Trailer
 
-class TrailerAdapter(private val trailerList: List<Trailer>)
+class TrailerAdapter(private val trailerList: List<Trailer>?)
     : RecyclerView.Adapter<TrailerAdapter.TrailerMyViewHolder>() {
     private lateinit var mContext: Context
 
@@ -24,7 +25,7 @@ class TrailerAdapter(private val trailerList: List<Trailer>)
     }
 
     override fun onBindViewHolder(holder: TrailerMyViewHolder, position: Int) {
-        val videoClip = "http://img.youtube.com/vi/" + trailerList[position].key + "/0.jpg"
+        val videoClip = "http://img.youtube.com/vi/" + trailerList?.get(position)?.key + "/0.jpg"
 
         Glide.with(mContext)
                 .load(videoClip)
@@ -32,7 +33,10 @@ class TrailerAdapter(private val trailerList: List<Trailer>)
     }
 
     override fun getItemCount(): Int {
-        return trailerList.size
+        if (trailerList != null) {
+            return trailerList.size
+        }
+        return 0;
     }
 
     inner class TrailerMyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -44,7 +48,7 @@ class TrailerAdapter(private val trailerList: List<Trailer>)
             view.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION) {
-                    val videoId = trailerList[pos].key
+                    val videoId = trailerList?.get(pos)?.key
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId"))
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     intent.putExtra("movie_id", videoId)

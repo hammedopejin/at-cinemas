@@ -47,17 +47,19 @@
                     android:id="@+id/back_arrow"
                     android:layout_width="?android:attr/actionBarSize"
                     android:layout_height="match_parent"
-                    android:src="@drawable/back_arrow"
+                    app:srcCompat="@drawable/ic_arrow_back_white_24dp"
+                    android:background="@android:color/transparent"
                     android:contentDescription="@string/back_arrow_description_string" />
 
                 <ImageButton
-                    android:id="@+id/settings"
+                    android:id="@+id/share"
                     android:layout_width="?android:attr/actionBarSize"
                     android:layout_height="match_parent"
                     android:layout_gravity="end"
-                    app:srcCompat="@drawable/ic_settings_white_24dp"
+                    app:srcCompat="@drawable/ic_share_white_24dp"
                     android:paddingEnd="@dimen/general_padding"
                     android:paddingStart="@dimen/general_padding"
+                    android:background="@android:color/transparent"
                     android:contentDescription="@string/settings_option_image_button_string" />
 
             </android.support.v7.widget.Toolbar>

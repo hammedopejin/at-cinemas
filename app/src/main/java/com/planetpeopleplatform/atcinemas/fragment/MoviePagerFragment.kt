@@ -59,10 +59,12 @@ class MoviePagerFragment : Fragment() {
     private fun initMovies() {
         viewModel.movies.observe(this, Observer<PagedList<Movie>> {
             Log.d("Activity", "movies_rv: ${it?.size}")
-            Log.d("Activity", "movies_rv: ${it?.get(0)?.title}")
-            mViewPageAdapter = MoviePagerAdapter(this, it!!)
+            Log.d("Activity", "movies_rv: " + mMoviePosition)
+            Log.d("Activity", "movies_rv: ${it?.get(mMoviePosition)?.title}")
+            mViewPageAdapter = MoviePagerAdapter(this, it)
             viewPager!!.adapter = mViewPageAdapter
             viewPager!!.setCurrentItem(mMoviePosition)
+
         })
 
         viewModel.networkErrors.observe(this, Observer<String> {

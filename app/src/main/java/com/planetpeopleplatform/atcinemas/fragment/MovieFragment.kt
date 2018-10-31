@@ -1,9 +1,11 @@
 package com.planetpeopleplatform.atcinemas.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.ShareCompat
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
@@ -19,7 +21,9 @@ import com.planetpeopleplatform.atcinemas.adapter.TrailerAdapter
 import com.planetpeopleplatform.atcinemas.api.ReviewsResponse
 import com.planetpeopleplatform.atcinemas.api.Service
 import com.planetpeopleplatform.atcinemas.api.TrailerResponse
+import com.planetpeopleplatform.atcinemas.model.Trailer
 import com.planetpeopleplatform.atcinemas.utils.Constants
+import com.planetpeopleplatform.atcinemas.utils.Constants.TRAILER_BASE_URL
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +43,7 @@ class MovieFragment : Fragment() {
     private lateinit var mOverview: String
     private lateinit var mReleaseDate: String
     private var mRatingBar: Float = 0.0f
+    private var mTrailers: List<Trailer>? = null
 
     fun newInstance(movieId: Long, posterUrl: String?, date: String?,
                     title: String?, overView: String,
@@ -61,6 +66,7 @@ class MovieFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_pager_item, container, false)
         val posterImageView: ImageView = view.findViewById(R.id.movie_poster_image_view)
+        val shareButton: ImageButton = view.findViewById(R.id.share)
         val collapsingToolbarLayout: CollapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar)
         val backArrow: ImageButton = view.findViewById(R.id.back_arrow)
 
@@ -69,6 +75,9 @@ class MovieFragment : Fragment() {
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.collapsing_tool_bar_layout_textview)
 
         backArrow.setOnClickListener { activity!!.onBackPressed() }
+        shareButton.setOnClickListener {
+            val shareIntent = createShareForecastIntent()
+            startActivity(shareIntent) }
 
 
         val arguments = arguments
@@ -108,7 +117,8 @@ class MovieFragment : Fragment() {
             call.enqueue(object : Callback<TrailerResponse> {
                 override fun onResponse(call: Call<TrailerResponse>, response: Response<TrailerResponse>) {
                     val trailer = response.body()!!.results
-                    trailerRecyclerView!!.setAdapter(TrailerAdapter(trailer!!))
+                    mTrailers = trailer
+                    trailerRecyclerView!!.setAdapter(TrailerAdapter(trailer))
                 }
 
                 override fun onFailure(call: Call<TrailerResponse>, t: Throwable) {
@@ -154,5 +164,18 @@ class MovieFragment : Fragment() {
             Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    private fun createShareForecastIntent(): Intent? {
+        if (mTrailers != null) {
+            val shareIntent = ShareCompat.IntentBuilder.from(activity)
+                    .setType("text/plain")
+                    .setText(TRAILER_BASE_URL + mTrailers!!.get(0).key)
+                    .intent
+            shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+            return shareIntent
+        }
+        Toast.makeText(context, "No trailer to share for the movie!", Toast.LENGTH_LONG).show()
+        return null
     }
 }
