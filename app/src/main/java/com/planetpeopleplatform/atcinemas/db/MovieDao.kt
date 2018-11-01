@@ -17,7 +17,7 @@ interface MovieDao {
     fun insert(posts: List<Movie>)
 
     // Fetch all movies
-    @Query("SELECT * FROM movies")
+    @Query("SELECT * FROM movies LIMIT 60")
     fun moviesQuery(): DataSource.Factory<Int, Movie>
 
 }

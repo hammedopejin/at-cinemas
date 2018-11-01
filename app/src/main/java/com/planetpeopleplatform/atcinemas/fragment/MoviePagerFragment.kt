@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.planetpeopleplatform.atcinemas.R
+import com.planetpeopleplatform.atcinemas.activity.MovieDetailActivity
+import com.planetpeopleplatform.atcinemas.activity.MovieDetailActivity.Companion.moviePosition
 import com.planetpeopleplatform.atcinemas.adapter.MoviePagerAdapter
 import com.planetpeopleplatform.atcinemas.model.Movie
 import com.planetpeopleplatform.atcinemas.utils.Injection
@@ -20,7 +22,7 @@ import com.planetpeopleplatform.atcinemas.view_model.MovieRepositoriesViewModel
 /**
  * A fragment for displaying a pager of movies.
  */
-class MoviePagerFragment : Fragment() {
+class MoviePagerFragment : Fragment(), ViewPager.OnPageChangeListener {
 
     private val KEY_MOVIE_POSITION = "com.planetpeopleplatform.atcinemas.key.moviePosition"
     private lateinit var viewModel: MovieRepositoriesViewModel
@@ -45,15 +47,27 @@ class MoviePagerFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(context!!))
                 .get(MovieRepositoriesViewModel::class.java)
 
-        val arguments = arguments
 
+        val arguments = arguments
         if (arguments == null) {
             return null
         }
         mMoviePosition = arguments.getInt(KEY_MOVIE_POSITION)
+
         initMovies()
 
         return viewPager
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        mMoviePosition = position
+        moviePosition = position
+    }
+
+    override fun onPageSelected(position: Int) {
     }
 
     private fun initMovies() {
@@ -64,6 +78,8 @@ class MoviePagerFragment : Fragment() {
             mViewPageAdapter = MoviePagerAdapter(this, it)
             viewPager!!.adapter = mViewPageAdapter
             viewPager!!.setCurrentItem(mMoviePosition)
+            viewPager!!.addOnPageChangeListener(this)
+
 
         })
 

@@ -77,7 +77,12 @@ class MovieFragment : Fragment() {
         backArrow.setOnClickListener { activity!!.onBackPressed() }
         shareButton.setOnClickListener {
             val shareIntent = createShareForecastIntent()
-            startActivity(shareIntent) }
+            if (shareIntent != null) {
+                startActivity(shareIntent)
+            } else {
+                Toast.makeText(context, "No trailer to share for the movie!", Toast.LENGTH_LONG).show()
+            }
+        }
 
 
         val arguments = arguments
@@ -116,7 +121,7 @@ class MovieFragment : Fragment() {
             val call = apiService.fetchMovieTrailer(mMoview_id)
             call.enqueue(object : Callback<TrailerResponse> {
                 override fun onResponse(call: Call<TrailerResponse>, response: Response<TrailerResponse>) {
-                    val trailer = response.body()!!.results
+                    val trailer = response.body()?.results
                     mTrailers = trailer
                     trailerRecyclerView!!.setAdapter(TrailerAdapter(trailer))
                 }
@@ -147,8 +152,8 @@ class MovieFragment : Fragment() {
             val call = apiService.fetchMovieReviews(mMoview_id)
             call.enqueue(object : Callback<ReviewsResponse> {
                 override fun onResponse(call: Call<ReviewsResponse>, response: Response<ReviewsResponse>) {
-                    val reviews = response.body()!!.results
-                    reviewsRecyclerView!!.setAdapter(ReviewsAdapter(reviews!!, mOverview,
+                    val reviews = response.body()?.results
+                    reviewsRecyclerView!!.setAdapter(ReviewsAdapter(reviews, mOverview,
                             mReleaseDate, mRatingBar))
                 }
 
@@ -167,7 +172,7 @@ class MovieFragment : Fragment() {
     }
 
     private fun createShareForecastIntent(): Intent? {
-        if (mTrailers != null) {
+        if (mTrailers!!.size > 0) {
             val shareIntent = ShareCompat.IntentBuilder.from(activity)
                     .setType("text/plain")
                     .setText(TRAILER_BASE_URL + mTrailers!!.get(0).key)
@@ -175,7 +180,6 @@ class MovieFragment : Fragment() {
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
             return shareIntent
         }
-        Toast.makeText(context, "No trailer to share for the movie!", Toast.LENGTH_LONG).show()
         return null
     }
 }
