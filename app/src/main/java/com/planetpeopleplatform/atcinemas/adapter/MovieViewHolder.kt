@@ -16,7 +16,6 @@ import com.bumptech.glide.request.RequestOptions.centerInsideTransform
 import com.planetpeopleplatform.atcinemas.R
 import com.planetpeopleplatform.atcinemas.activity.MovieDetailActivity
 import com.planetpeopleplatform.atcinemas.model.Movie
-import com.planetpeopleplatform.atcinemas.utils.Constants.MOVIE_ID
 import com.planetpeopleplatform.atcinemas.utils.Constants.MOVIE_POSITION
 import com.planetpeopleplatform.atcinemas.utils.Constants.THUMBNAIL_URL
 

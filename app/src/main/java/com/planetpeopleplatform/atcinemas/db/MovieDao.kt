@@ -20,4 +20,9 @@ interface MovieDao {
     @Query("SELECT * FROM movies LIMIT 60")
     fun moviesQuery(): DataSource.Factory<Int, Movie>
 
+    // Look for repos that contain the query string in the name or in the description
+    @Query("SELECT * FROM movies WHERE (title LIKE :queryString) OR (description LIKE " +
+            ":queryString) ORDER BY title ASC")
+    fun moviesByName(queryString: String): DataSource.Factory<Int, Movie>
+
 }

@@ -12,9 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.planetpeopleplatform.atcinemas.R
-import com.planetpeopleplatform.atcinemas.activity.MovieDetailActivity
-import com.planetpeopleplatform.atcinemas.activity.MovieDetailActivity.Companion.moviePosition
 import com.planetpeopleplatform.atcinemas.adapter.MoviePagerAdapter
+import com.planetpeopleplatform.atcinemas.fragment.MainActivityFragment.Companion.moviePosition
 import com.planetpeopleplatform.atcinemas.model.Movie
 import com.planetpeopleplatform.atcinemas.utils.Injection
 import com.planetpeopleplatform.atcinemas.view_model.MovieRepositoriesViewModel
@@ -74,7 +73,7 @@ class MoviePagerFragment : Fragment(), ViewPager.OnPageChangeListener {
         viewModel.movies.observe(this, Observer<PagedList<Movie>> {
             Log.d("Activity", "movies_rv: ${it?.size}")
             Log.d("Activity", "movies_rv: " + mMoviePosition)
-            Log.d("Activity", "movies_rv: ${it?.get(mMoviePosition)?.title}")
+
             mViewPageAdapter = MoviePagerAdapter(this, it)
             viewPager!!.adapter = mViewPageAdapter
             viewPager!!.setCurrentItem(mMoviePosition)

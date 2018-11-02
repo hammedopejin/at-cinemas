@@ -21,4 +21,20 @@ class MovieRepositoriesViewModel(repository: MovieRepository) : ViewModel() {
 
     val networkErrors: LiveData<String> = movieResult.networkErrors
 
+    private val queryLiveData = MutableLiveData<String>()
+
+    private val moviesSearchResult: LiveData<MovieResult> = Transformations.map(queryLiveData, {
+        repository.search(it)
+    })
+
+    val moviesSearch: LiveData<PagedList<Movie>> = Transformations.switchMap(moviesSearchResult,
+            { it -> it.data })
+
+    /**
+     * Search repository based on a query string.
+     */
+    fun searchRepo(queryString: String) {
+        queryLiveData.postValue(queryString)
+    }
+
 }

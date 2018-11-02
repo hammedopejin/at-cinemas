@@ -16,4 +16,8 @@
     <string name="reviews_string">Reviews</string>
     <string name="trailer_thumbnail_string">Thumbnail that holds the trailer for the movie</string>
     <string name="trailer_play_button_thumbnail_string">Trailer play button to play movie trailer when pressed</string>
+    <string name="error_fetching_review_string">Error fetching movie reviews</string>
+    <string name="error_fetching_trailers_string">Error fetching movie trailers</string>
+    <string name="atcinema_logo_image">Atcinema app logo image</string>
+    <string name="action_settings">Settings</string>
 </resources>

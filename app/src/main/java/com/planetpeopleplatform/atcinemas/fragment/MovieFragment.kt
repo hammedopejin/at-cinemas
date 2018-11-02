@@ -7,7 +7,6 @@ import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.ShareCompat
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -37,8 +36,8 @@ class MovieFragment : Fragment() {
     private val KEY_MOVIE_RELEASE_DATE = "com.planetpeopleplatform.atcinemas.key.movieRELEASEDATE"
     private val KEY_MOVIE_RELEASE_OVERVIEW = "com.planetpeopleplatform.atcinemas.key.movieOVERVIEW"
 
-    private var trailerRecyclerView: RecyclerView? = null
-    private var reviewsRecyclerView: RecyclerView? = null
+    private var mTrailerRecyclerView: RecyclerView? = null
+    private var mReviewsRecyclerView: RecyclerView? = null
     private var mMoview_id: Long = 0
     private lateinit var mOverview: String
     private lateinit var mReleaseDate: String
@@ -65,6 +64,7 @@ class MovieFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_pager_item, container, false)
+
         val posterImageView: ImageView = view.findViewById(R.id.movie_poster_image_view)
         val shareButton: ImageButton = view.findViewById(R.id.share)
         val collapsingToolbarLayout: CollapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar)
@@ -111,7 +111,7 @@ class MovieFragment : Fragment() {
     }
 
     private fun initTrailer(view: View) {
-        trailerRecyclerView = view.findViewById<View>(R.id.trailer_recycler_view) as RecyclerView
+        mTrailerRecyclerView = view.findViewById<View>(R.id.trailer_recycler_view) as RecyclerView
         loadTrailer()
     }
 
@@ -123,25 +123,23 @@ class MovieFragment : Fragment() {
                 override fun onResponse(call: Call<TrailerResponse>, response: Response<TrailerResponse>) {
                     val trailer = response.body()?.results
                     mTrailers = trailer
-                    trailerRecyclerView!!.setAdapter(TrailerAdapter(trailer))
+                    mTrailerRecyclerView!!.setAdapter(TrailerAdapter(trailer))
                 }
 
                 override fun onFailure(call: Call<TrailerResponse>, t: Throwable) {
-                    Log.d("Error", t.message)
-                    Toast.makeText(context, "Error fetching trailer data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.error_fetching_trailers_string), Toast.LENGTH_SHORT).show()
 
                 }
             })
 
         } catch (e: Exception) {
-            Log.d("Error", e.message)
-            Toast.makeText(context, "Error fetching trailer data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.error_fetching_trailers_string), Toast.LENGTH_SHORT).show()
         }
 
     }
 
     private fun initReviews(view: View) {
-        reviewsRecyclerView = view.findViewById<View>(R.id.review_recycler_view) as RecyclerView
+        mReviewsRecyclerView = view.findViewById<View>(R.id.review_recycler_view) as RecyclerView
         loadReviews()
     }
 
@@ -153,20 +151,18 @@ class MovieFragment : Fragment() {
             call.enqueue(object : Callback<ReviewsResponse> {
                 override fun onResponse(call: Call<ReviewsResponse>, response: Response<ReviewsResponse>) {
                     val reviews = response.body()?.results
-                    reviewsRecyclerView!!.setAdapter(ReviewsAdapter(reviews, mOverview,
+                    mReviewsRecyclerView!!.setAdapter(ReviewsAdapter(reviews, mOverview,
                             mReleaseDate, mRatingBar))
                 }
 
                 override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {
-                    Log.d("Error", t.message)
-                    Toast.makeText(context, "Error fetching reviews data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.error_fetching_review_string), Toast.LENGTH_SHORT).show()
 
                 }
             })
 
         } catch (e: Exception) {
-            Log.d("Error", e.message)
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.error_fetching_review_string), Toast.LENGTH_SHORT).show()
         }
 
     }

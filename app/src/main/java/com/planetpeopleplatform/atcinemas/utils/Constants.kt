@@ -35,7 +35,6 @@ object Constants {
 
     const val MOVIE_ID = "movie_id"
     const val MOVIE_POSITION = "movie_position"
-    const val SORT_BY = "sortBy"
     const val UNKNOWN = "Unknown"
 
     const val EXTRA_PATH = "extra_path"

@@ -32,4 +32,14 @@ class MovieLocalCache(
     fun moviesQuery(): DataSource.Factory<Int, Movie> {
         return movieDao.moviesQuery()
     }
+
+    /**
+     * Request a LiveData<List<Repo>> from the Dao, based on a movie name.
+     * @param name repository name
+     */
+    fun moviesByName(name: String): DataSource.Factory<Int, Movie> {
+        // appending '%' so we can allow other characters to be before and after the query string
+        val query = "%${name.replace(' ', '%')}%"
+        return movieDao.moviesByName(query)
+    }
 }
