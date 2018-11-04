@@ -2,8 +2,8 @@ package com.planetpeopleplatform.atcinemas.fragment
 
 import android.arch.lifecycle.*
 import android.arch.paging.PagedList
-import android.content.res.Configuration
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
@@ -59,13 +59,9 @@ class MainActivityFragment : Fragment() {
 
 
     private fun initAdapter() {
-        if (activity!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //portraitView
-            movies_rv.layoutManager = GridLayoutManager(movies_rv.context, 2)
-        } else {
-            //landscapeView
-            movies_rv.layoutManager = GridLayoutManager(movies_rv.context, 3)
-        }
+
+        movies_rv.layoutManager = GridLayoutManager(movies_rv.context, getResources().getInteger(R.integer.grid_span_count))
+
         // add dividers between RecyclerView's row items
         val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         movies_rv.addItemDecoration(decoration)
@@ -79,6 +75,7 @@ class MainActivityFragment : Fragment() {
 
         viewModel.networkErrors.observe(this, Observer<String> {
             showDataView()
+            Snackbar.make(fragment_container, "Network error!", Snackbar.LENGTH_SHORT).show()
         })
     }
 

@@ -9,7 +9,7 @@
     app:cardCornerRadius="1dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
-    app:cardElevation="1dp">
+    app:cardElevation="@dimen/cardview_default_elevation">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -17,16 +17,16 @@
 
             <ImageView
                 android:id="@+id/thumbnail"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="@dimen/card_view_image_size"
+                android:layout_height="@dimen/card_view_image_size"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerCrop"
                 tools:background="@color/colorPrimary"
                 android:contentDescription="@string/trailer_thumbnail_string" />
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/pad_40dp"
+                android:layout_height="@dimen/pad_40dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_play_circle_filled_white_red_400_24dp"
                 android:contentDescription="@string/trailer_play_button_thumbnail_string" />

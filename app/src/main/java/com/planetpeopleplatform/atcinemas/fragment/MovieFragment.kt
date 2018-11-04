@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.ShareCompat
 import android.support.v7.widget.RecyclerView
@@ -23,6 +24,7 @@ import com.planetpeopleplatform.atcinemas.api.TrailerResponse
 import com.planetpeopleplatform.atcinemas.model.Trailer
 import com.planetpeopleplatform.atcinemas.utils.Constants
 import com.planetpeopleplatform.atcinemas.utils.Constants.TRAILER_BASE_URL
+import kotlinx.android.synthetic.main.fragment_pager_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -80,7 +82,8 @@ class MovieFragment : Fragment() {
             if (shareIntent != null) {
                 startActivity(shareIntent)
             } else {
-                Toast.makeText(context, "No trailer to share for the movie!", Toast.LENGTH_LONG).show()
+                Snackbar.make(fragment_container, "No trailer to share for the movie!", Snackbar.LENGTH_LONG)
+                        .show()
             }
         }
 
@@ -127,13 +130,15 @@ class MovieFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<TrailerResponse>, t: Throwable) {
-                    Toast.makeText(context, getString(R.string.error_fetching_trailers_string), Toast.LENGTH_SHORT).show()
+                    Snackbar.make(fragment_container, getString(R.string.error_fetching_trailers_string),
+                            Snackbar.LENGTH_SHORT).show()
 
                 }
             })
 
         } catch (e: Exception) {
-            Toast.makeText(context, getString(R.string.error_fetching_trailers_string), Toast.LENGTH_SHORT).show()
+            Snackbar.make(fragment_container, getString(R.string.error_fetching_trailers_string),
+                    Snackbar.LENGTH_SHORT).show()
         }
 
     }
@@ -156,13 +161,15 @@ class MovieFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {
-                    Toast.makeText(context, getString(R.string.error_fetching_review_string), Toast.LENGTH_SHORT).show()
+                    Snackbar.make(fragment_container, getString(R.string.error_fetching_review_string),
+                            Snackbar.LENGTH_SHORT).show()
 
                 }
             })
 
         } catch (e: Exception) {
-            Toast.makeText(context, getString(R.string.error_fetching_review_string), Toast.LENGTH_SHORT).show()
+            Snackbar.make(fragment_container, getString(R.string.error_fetching_review_string),
+                    Snackbar.LENGTH_SHORT).show()
         }
 
     }

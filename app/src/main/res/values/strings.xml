@@ -18,6 +18,20 @@
     <string name="trailer_play_button_thumbnail_string">Trailer play button to play movie trailer when pressed</string>
     <string name="error_fetching_review_string">Error fetching movie reviews</string>
     <string name="error_fetching_trailers_string">Error fetching movie trailers</string>
-    <string name="atcinema_logo_image">Atcinema app logo image</string>
+    <string name="atcinemas_logo_image">Atcinema app logo image</string>
     <string name="action_settings">Settings</string>
+
+
+    <!-- Settings strings  -->
+    <string name="privacy_policy_string">Privacy Policy</string>
+    <string name="privacy_policy_key">Privacy Policy Key</string>
+    <string name="terms_and_conditions_key">Terms And Conditions key</string>
+    <string name="terms_and_conditions_string">Terms and Conditions</string>
+
+
+
+    <!-- Url link Strings -->
+    <string name="atcinemas_privacy_policies_url_string">https://docs.google.com/document/d/e/2PACX-1vSigTJFkQwupqxC7FwW27fEfSzLXJl2WMMjfZnFpAPE8lLfSb6vRvUhez3belX-OI68MQp26Fc4pvdJ/pub</string>
+    <string name="atcinemas_platform_terms_url_string">https://docs.google.com/document/d/e/2PACX-1vQ-9nRW3YDdq3M26rbNGOxsuxNdVU3jfVJl1H4L8SYmD7WY9KXotcW94oPySm5ew4i6aeVgFj3tQPId/pub</string>
+
 </resources>

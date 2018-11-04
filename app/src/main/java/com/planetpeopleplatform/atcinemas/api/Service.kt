@@ -1,6 +1,5 @@
 package com.planetpeopleplatform.atcinemas.api
 
-import android.util.Log
 import com.planetpeopleplatform.atcinemas.BuildConfig
 import com.planetpeopleplatform.atcinemas.model.Movie
 import com.planetpeopleplatform.atcinemas.utils.Constants.MOVIE_BASE_URL
@@ -15,7 +14,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val TAG = "Service"
 
 /**
  * Fetch movies based on a query.
@@ -32,12 +30,10 @@ fun fetchMovies(
         page: Int,
         onSuccess: (movies: List<Movie>) -> Unit,
         onError: (error: String) -> Unit) {
-    Log.d(TAG, "page: $page")
 
     service.fetchMovies(page).enqueue(
             object : Callback<MovieResponse> {
                 override fun onFailure(call: Call<MovieResponse>?, t: Throwable) {
-                    Log.d(TAG, "fail to get data")
                     onError(t.message ?: "unknown error")
                 }
 
@@ -45,7 +41,6 @@ fun fetchMovies(
                         call: Call<MovieResponse>?,
                         response: Response<MovieResponse>
                 ) {
-                    Log.d(TAG, "got a response $response")
                     if (response.isSuccessful) {
                         val movies = response.body()?.results ?: emptyList()
                         onSuccess(movies)

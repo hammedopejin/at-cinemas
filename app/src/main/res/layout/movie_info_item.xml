@@ -87,7 +87,7 @@
                 android:paddingRight="@dimen/pad_16dp"
                 android:paddingTop="@dimen/pad_16dp"
                 android:text="@string/movie_description_string"
-                android:textSize="24sp"
+                android:textSize="@dimen/txt_20sp"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold" />
@@ -120,7 +120,7 @@
             android:paddingRight="@dimen/pad_16dp"
             android:paddingTop="@dimen/pad_16dp"
             android:text="@string/reviews_string"
-            android:textSize="24sp"
+            android:textSize="@dimen/txt_20sp"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold" />

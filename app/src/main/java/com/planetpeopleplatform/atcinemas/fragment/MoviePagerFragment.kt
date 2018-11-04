@@ -4,19 +4,19 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.arch.paging.PagedList
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.planetpeopleplatform.atcinemas.R
 import com.planetpeopleplatform.atcinemas.adapter.MoviePagerAdapter
 import com.planetpeopleplatform.atcinemas.fragment.MainActivityFragment.Companion.moviePosition
 import com.planetpeopleplatform.atcinemas.model.Movie
 import com.planetpeopleplatform.atcinemas.utils.Injection
 import com.planetpeopleplatform.atcinemas.view_model.MovieRepositoriesViewModel
+import kotlinx.android.synthetic.main.activity_movie_detail.*
 
 /**
  * A fragment for displaying a pager of movies.
@@ -71,19 +71,16 @@ class MoviePagerFragment : Fragment(), ViewPager.OnPageChangeListener {
 
     private fun initMovies() {
         viewModel.movies.observe(this, Observer<PagedList<Movie>> {
-            Log.d("Activity", "movies_rv: ${it?.size}")
-            Log.d("Activity", "movies_rv: " + mMoviePosition)
 
             mViewPageAdapter = MoviePagerAdapter(this, it)
             viewPager!!.adapter = mViewPageAdapter
             viewPager!!.setCurrentItem(mMoviePosition)
             viewPager!!.addOnPageChangeListener(this)
 
-
         })
 
         viewModel.networkErrors.observe(this, Observer<String> {
-            Toast.makeText(context, "\uD83D\uDE28 Wooops ${it}", Toast.LENGTH_LONG).show()
+            Snackbar.make(container, "Network error!", Snackbar.LENGTH_SHORT).show()
 
         })
     }
